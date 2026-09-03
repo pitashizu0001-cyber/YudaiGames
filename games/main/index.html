@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遊田ゲーム - お金で遊べるゲーム</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 遊田ゲーム</h1>
+            <div class="info-bar">
+                <div class="currency-display">
+                    <span class="label">お金:</span>
+                    <span id="money" class="value">0円</span>
+                </div>
+                <div class="level-display">
+                    <span class="label">レベル:</span>
+                    <span id="level" class="value">1</span>
+                </div>
+                <div class="menu-link">
+                    <a href="../../index.html" class="back-link">← ゲーム選択に戻る</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-section">
+            <!-- ゲームエリア -->
+            <section id="gameArea" class="game-area">
+                <h2>ゲームを選択してください</h2>
+                <div class="game-select">
+                    <button class="game-btn" onclick="selectGame('clicker')">クリッカーゲーム</button>
+                    <button class="game-btn" onclick="selectGame('dice')">サイコロゲーム</button>
+                    <button class="game-btn" onclick="selectGame('matching')">マッチングゲーム</button>
+                </div>
+            </section>
+
+            <!-- クリッカーゲーム -->
+            <section id="clickerGame" class="game-panel hidden">
+                <h2>クリッカーゲーム</h2>
+                <p>ボタンをクリックしてお金を稼ぐ！</p>
+                <button id="clickerButton" class="big-btn" onclick="clickerClick()">クリック! (+10円)</button>
+                <p>クリック数: <span id="clickCount">0</span></p>
+                <button onclick="backToMenu()" class="back-btn">戻る</button>
+            </section>
+
+            <!-- サイコロゲーム -->
+            <section id="diceGame" class="game-panel hidden">
+                <h2>サイコロゲーム</h2>
+                <p>お金を賭けてサイコロを振る！</p>
+                <div class="dice-controls">
+                    <input type="number" id="diceBet" min="10" max="1000" value="100" placeholder="賭け金を入力">
+                    <button onclick="rollDice()" class="action-btn">サイコロを振る</button>
+                </div>
+                <div id="diceResult"></div>
+                <button onclick="backToMenu()" class="back-btn">戻る</button>
+            </section>
+
+            <!-- マッチングゲーム -->
+            <section id="matchingGame" class="game-panel hidden">
+                <h2>マッチングゲーム</h2>
+                <p>同じペアをクリックして見つける！</p>
+                <div id="matchingGrid" class="matching-grid"></div>
+                <button onclick="backToMenu()" class="back-btn">戻る</button>
+            </section>
+        </div>
+
+        <!-- ツール・自動機能セクション -->
+        <aside class="tools-section">
+            <h3>🛠️ ツール & 自動機能</h3>
+            
+            <div class="tool-card">
+                <h4>自動クリッカー</h4>
+                <p>毎秒自動でクリック (時給: <span id="autoClickerRate">0円</span>)</p>
+                <button onclick="buyAutoClicker()" class="tool-btn">
+                    購入: <span id="autoClickerCost">1000</span>円
+                </button>
+                <p class="tool-status">所持数: <span id="autoClickerCount">0</span>台</p>
+            </div>
+
+            <div class="tool-card">
+                <h4>ゴールドマルチプライヤー</h4>
+                <p>収入を2倍にする</p>
+                <button onclick="buyMultiplier()" class="tool-btn">
+                    購入: <span id="multiplierCost">5000</span>円
+                </button>
+                <p class="tool-status">レベル: <span id="multiplierLevel">1</span>倍</p>
+            </div>
+
+            <div class="tool-card">
+                <h4>自動セーブ</h4>
+                <p>ゲーム進度を自動保存</p>
+                <label class="toggle">
+                    <input type="checkbox" id="autoSaveToggle" onchange="toggleAutoSave()" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+                <p class="tool-status">自動保存: <span id="autoSaveStatus">有効</span></p>
+            </div>
+
+            <div class="tool-card">
+                <h4>ゲーム統計</h4>
+                <button onclick="showStats()" class="tool-btn">統計を表示</button>
+            </div>
+
+            <div class="tool-card">
+                <h4>メニューに戻る</h4>
+                <a href="../../index.html" class="tool-btn menu-btn">← ゲーム選択</a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 統計モーダル -->
+    <div id="statsModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeStats()">&times;</span>
+            <h2>ゲーム統計</h2>
+            <div id="statsContent"></div>
+        </div>
+    </div>
+
+    <script src="../../js/currency.js"></script>
+    <script src="../../js/tools.js"></script>
+    <script src="../../js/game.js"></script>
+</body>
+</html>
