@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <link rel="stylesheet" href="joke-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>😂 Random Joke Generator</h1>
+            <p class="subtitle">Get a laugh with a random joke!</p>
+        </header>
+
+        <main class="joke-section">
+            <div class="joke-card">
+                <div id="jokeContent" class="joke-content">
+                    <p class="loading-text">Click the button to get a joke!</p>
+                </div>
+                <div class="joke-type" id="jokeType"></div>
+            </div>
+
+            <div class="controls">
+                <button id="getJokeBtn" class="btn btn-primary" onclick="fetchJoke()">
+                    Get a Joke 🎭
+                </button>
+                <button id="copyBtn" class="btn btn-secondary" onclick="copyToClipboard()" style="display: none;">
+                    Copy to Clipboard 📋
+                </button>
+            </div>
+
+            <div class="options">
+                <label>
+                    <input type="checkbox" id="safeMode" checked>
+                    Safe Mode (Clean jokes only)
+                </label>
+                <label>
+                    <input type="checkbox" id="darkMode">
+                    Dark Mode
+                </label>
+            </div>
+
+            <div class="stats">
+                <p>Jokes loaded: <span id="jokeCount">0</span></p>
+            </div>
+        </main>
+
+        <section class="jokes-history">
+            <h2>Recent Jokes</h2>
+            <div id="historyList" class="history-list"></div>
+            <button onclick="clearHistory()" class="btn btn-small">Clear History</button>
+        </section>
+    </div>
+
+    <script src="joke-script.js"></script>
+</body>
+</html>
