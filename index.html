@@ -3,116 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>遊田ゲーム - お金で遊べるゲーム</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>遊田ゲーム - ゲーム総合サイト</title>
+    <link rel="stylesheet" href="menu-styles.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>🎮 遊田ゲーム</h1>
-            <div class="info-bar">
-                <div class="currency-display">
-                    <span class="label">お金:</span>
-                    <span id="money" class="value">0円</span>
-                </div>
-                <div class="level-display">
-                    <span class="label">レベル:</span>
-                    <span id="level" class="value">1</span>
-                </div>
-            </div>
+            <p class="subtitle">複数のゲームで遊んでお金を稼ごう！</p>
         </header>
 
-        <div class="game-section">
-            <!-- ゲームエリア -->
-            <section id="gameArea" class="game-area">
-                <h2>ゲームを選択してください</h2>
-                <div class="game-select">
-                    <button class="game-btn" onclick="selectGame('clicker')">クリッカーゲーム</button>
-                    <button class="game-btn" onclick="selectGame('dice')">サイコロゲーム</button>
-                    <button class="game-btn" onclick="selectGame('matching')">マッチングゲーム</button>
+        <main class="games-grid">
+            <!-- ゲーム1: メインゲーム -->
+            <a href="games/main/index.html" class="game-card">
+                <div class="card-header">
+                    <span class="game-icon">💰</span>
                 </div>
-            </section>
-
-            <!-- クリッカーゲーム -->
-            <section id="clickerGame" class="game-panel hidden">
-                <h2>クリッカーゲーム</h2>
-                <p>ボタンをクリックしてお金を稼ぐ！</p>
-                <button id="clickerButton" class="big-btn" onclick="clickerClick()">クリック! (+10円)</button>
-                <p>クリック数: <span id="clickCount">0</span></p>
-                <button onclick="backToMenu()" class="back-btn">戻る</button>
-            </section>
-
-            <!-- サイコロゲーム -->
-            <section id="diceGame" class="game-panel hidden">
-                <h2>サイコロゲーム</h2>
-                <p>お金を賭けてサイコロを振る！</p>
-                <div class="dice-controls">
-                    <input type="number" id="diceBet" min="10" max="1000" value="100" placeholder="賭け金を入力">
-                    <button onclick="rollDice()" class="action-btn">サイコロを振る</button>
+                <div class="card-body">
+                    <h2>遊田ゲーム</h2>
+                    <p>クリッカー・サイコロ・マッチングゲーム</p>
+                    <div class="features">
+                        <span class="feature">🎮 3つのゲーム</span>
+                        <span class="feature">🤖 自動機能</span>
+                        <span class="feature">📈 レベルシステム</span>
+                    </div>
                 </div>
-                <div id="diceResult"></div>
-                <button onclick="backToMenu()" class="back-btn">戻る</button>
-            </section>
+                <div class="card-footer">
+                    <button class="btn">遊ぶ →</button>
+                </div>
+            </a>
 
-            <!-- マッチングゲーム -->
-            <section id="matchingGame" class="game-panel hidden">
-                <h2>マッチングゲーム</h2>
-                <p>同じペアをクリックして見つける！</p>
-                <div id="matchingGrid" class="matching-grid"></div>
-                <button onclick="backToMenu()" class="back-btn">戻る</button>
-            </section>
-        </div>
+            <!-- ゲーム2: 石のゲーム -->
+            <a href="games/rock/index.html" class="game-card">
+                <div class="card-header">
+                    <span class="game-icon">🪨</span>
+                </div>
+                <div class="card-body">
+                    <h2>石のゲーム</h2>
+                    <p>石をクリックして貯める放置ゲーム</p>
+                    <div class="features">
+                        <span class="feature">⚡ クリック強化</span>
+                        <span class="feature">🔨 ドリル機械</span>
+                        <span class="feature">💸 自動売却</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">遊ぶ →</button>
+                </div>
+            </a>
 
-        <!-- ツール・自動機能セクション -->
-        <aside class="tools-section">
-            <h3>🛠️ ツール & 自動機能</h3>
+            <!-- ゲーム3: ジョークジェネレーター -->
+            <a href="games/joke/index.html" class="game-card">
+                <div class="card-header">
+                    <span class="game-icon">😂</span>
+                </div>
+                <div class="card-body">
+                    <h2>ジョークジェネレーター</h2>
+                    <p>ランダムなジョークで笑顔に</p>
+                    <div class="features">
+                        <span class="feature">🎭 ランダムジョーク</span>
+                        <span class="feature">🌙 ダークモード</span>
+                        <span class="feature">📋 履歴保存</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">遊ぶ →</button>
+                </div>
+            </a>
+        </main>
+
+        <!-- 説明セクション -->
+        <section class="info-section">
+            <h2>🎯 ゲーム紹介</h2>
             
-            <div class="tool-card">
-                <h4>自動クリッカー</h4>
-                <p>毎秒自動でクリック (時給: <span id="autoClickerRate">0円</span>)</p>
-                <button onclick="buyAutoClicker()" class="tool-btn">
-                    購入: <span id="autoClickerCost">1000</span>円
-                </button>
-                <p class="tool-status">所持数: <span id="autoClickerCount">0</span>台</p>
-            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>💰 遊田ゲーム</h3>
+                    <p>
+                        クリッカーゲーム、サイコロゲーム、マッチングゲームの3つのゲームが遊べます。
+                        お金を稼いで、自動クリッカーやマルチプライヤーなどのツールを購入して、
+                        さらに稼げるようになります。
+                    </p>
+                    <ul>
+                        <li>🎲 クリッカーゲーム - ボタンをクリックしてお金を稼ぐ</li>
+                        <li>🎰 サイコロゲーム - お金を賭けてギャンブル</li>
+                        <li>🧩 マッチングゲーム - ペアを見つけてボーナス獲得</li>
+                        <li>🤖 自動ツール - 自動売却機、マルチプライヤーなど</li>
+                    </ul>
+                </div>
 
-            <div class="tool-card">
-                <h4>ゴールドマルチプライヤー</h4>
-                <p>収入を2倍にする</p>
-                <button onclick="buyMultiplier()" class="tool-btn">
-                    購入: <span id="multiplierCost">5000</span>円
-                </button>
-                <p class="tool-status">レベル: <span id="multiplierLevel">1</span>倍</p>
-            </div>
+                <div class="info-card">
+                    <h3>🪨 石のゲーム</h3>
+                    <p>
+                        石をクリックして貯めて、売却してお金に変えます。
+                        自動売却機やドリル機械を購入して、放置しながら稼げます。
+                        石の価格は売却金に応じて上昇していきます。
+                    </p>
+                    <ul>
+                        <li>🪨 石をクリック - 1クリックで複数の石を獲得</li>
+                        <li>💰 石を売却 - 石をお金に変換</li>
+                        <li>🤖 自動売却機 - 毎秒自動で売却</li>
+                        <li>🔨 ドリル機械 - 毎秒自動で採掘</li>
+                        <li>📈 マルチプライヤー - 採掘効率を上昇</li>
+                    </ul>
+                </div>
 
-            <div class="tool-card">
-                <h4>自動セーブ</h4>
-                <p>ゲーム進度を自動保存</p>
-                <label class="toggle">
-                    <input type="checkbox" id="autoSaveToggle" onchange="toggleAutoSave()" checked>
-                    <span class="toggle-slider"></span>
-                </label>
-                <p class="tool-status">自動保存: <span id="autoSaveStatus">有効</span></p>
+                <div class="info-card">
+                    <h3>😂 ジョークジェネレーター</h3>
+                    <p>
+                        Official Joke APIから、ランダムなジョークを取得します。
+                        セーフモード搭載で、クリーンなジョークのみを表示することもできます。
+                        お気に入りのジョークはコピーして共有できます。
+                    </p>
+                    <ul>
+                        <li>🎭 ランダムジョーク - 毎回違うジョークが表示</li>
+                        <li>🛡️ セーフモード - クリーンなジョークのみ表示</li>
+                        <li>🌙 ダークモード - 目に優しい暗いテーマ</li>
+                        <li>📋 履歴機能 - 過去のジョークを記録</li>
+                        <li>⌨️ キーボード操作 - SPACEキーでジョーク取得</li>
+                    </ul>
+                </div>
             </div>
+        </section>
 
-            <div class="tool-card">
-                <h4>ゲーム統計</h4>
-                <button onclick="showStats()" class="tool-btn">統計を表示</button>
-            </div>
-        </aside>
+        <!-- 機能比較 -->
+        <section class="comparison-section">
+            <h2>📊 ゲーム機能比較</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>💰 遊田ゲーム</th>
+                        <th>🪨 石のゲーム</th>
+                        <th>😂 ジョーク</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>クリックゲーム</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>自動機能</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>お金稼ぎ</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>レベルシステム</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>オートセーブ</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>ダークモード</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>統計機能</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- フッター -->
+        <footer>
+            <p>遊田ゲーム © 2026 | 作成者: pitashizu0001-cyber</p>
+            <p class="footer-links">
+                <a href="https://github.com/pitashizu0001-cyber/YudaiGames" target="_blank">GitHub</a> |
+                <a href="#" onclick="scrollToTop()">トップに戻る</a>
+            </p>
+        </footer>
     </div>
 
-    <!-- 統計モーダル -->
-    <div id="statsModal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close" onclick="closeStats()">&times;</span>
-            <h2>ゲーム統計</h2>
-            <div id="statsContent"></div>
-        </div>
-    </div>
-
-    <script src="js/currency.js"></script>
-    <script src="js/tools.js"></script>
-    <script src="js/game.js"></script>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
