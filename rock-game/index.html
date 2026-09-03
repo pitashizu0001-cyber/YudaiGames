@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石のゲーム - クリックして石を貯める</title>
+    <link rel="stylesheet" href="rock-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🪨 石のゲーム</h1>
+            <p class="subtitle">石をクリックして貯めて、お金を稼ごう！</p>
+        </header>
+
+        <main class="game-wrapper">
+            <!-- ゲームエリア -->
+            <section class="game-area">
+                <div class="stats-header">
+                    <div class="stat-box">
+                        <span class="stat-label">石</span>
+                        <span class="stat-value" id="rockCount">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">お金</span>
+                        <span class="stat-value money" id="money">0円</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">レベル</span>
+                        <span class="stat-value" id="level">1</span>
+                    </div>
+                </div>
+
+                <!-- クリッカブルな石 -->
+                <div class="rock-container">
+                    <button id="rockButton" class="rock-button" onclick="clickRock()">
+                        <span class="rock-emoji">🪨</span>
+                    </button>
+                    <div id="floatingTexts" class="floating-texts"></div>
+                </div>
+
+                <!-- クリック情報 -->
+                <div class="click-info">
+                    <p>1クリック: <strong id="clickValue">+1</strong> 石</p>
+                    <p>総クリック数: <strong id="totalClicks">0</strong></p>
+                </div>
+            </section>
+
+            <!-- 右サイドバー -->
+            <aside class="sidebar">
+                <!-- 石の売却 -->
+                <section class="card">
+                    <h2>💰 石を売却</h2>
+                    <div class="sell-section">
+                        <p>1石 = <strong id="rockPrice">1</strong>円</p>
+                        <input type="number" id="sellAmount" min="1" value="1" max="999999">
+                        <button onclick="sellRocks()" class="btn btn-primary">
+                            売却する
+                        </button>
+                        <p class="sell-preview">
+                            得られるお金: <strong id="sellPreview">0</strong>円
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 一括売却 -->
+                <section class="card">
+                    <h2>🔄 一括売却</h2>
+                    <button onclick="sellAllRocks()" class="btn btn-secondary">
+                        すべて売却
+                    </button>
+                    <p class="btn-info">全ての石を売却します</p>
+                </section>
+
+                <!-- 自動売却 -->
+                <section class="card">
+                    <h2>🤖 自動売却機</h2>
+                    <p class="cost-info">コスト: <strong id="autoSellCost">500</strong>円</p>
+                    <p>毎秒自動で石を売却</p>
+                    <button onclick="buyAutoSeller()" class="btn btn-accent">
+                        購入 (<span id="autoSellCount">0</span>台)
+                    </button>
+                    <p class="income-info">時給: <span id="autoSellRate">0</span>円</p>
+                </section>
+
+                <!-- クリック強化 -->
+                <section class="card">
+                    <h2>⚡ クリック強化</h2>
+                    <p>1クリック: <strong id="clickBoostValue">+1</strong> 石</p>
+                    <p class="cost-info">コスト: <strong id="clickBoostCost">100</strong>円</p>
+                    <button onclick="buyClickBoost()" class="btn btn-accent">
+                        購入 (<span id="clickBoostLevel">0</span>回)
+                    </button>
+                </section>
+
+                <!-- ドリル -->
+                <section class="card">
+                    <h2>🔨 ドリル機械</h2>
+                    <p>毎秒自動で石を採掘</p>
+                    <p class="cost-info">コスト: <strong id="drillCost">2000</strong>円</p>
+                    <button onclick="buyDrill()" class="btn btn-accent">
+                        購入 (<span id="drillCount">0</span>台)
+                    </button>
+                    <p class="income-info">採掘速度: <span id="drillRate">0</span>個/秒</p>
+                </section>
+
+                <!-- ボーナスマルチプライヤー -->
+                <section class="card">
+                    <h2>✨ 採掘マルチプライヤー</h2>
+                    <p>採掘効率が<strong id="multiplierLevel">1</strong>倍</p>
+                    <p class="cost-info">コスト: <strong id="multiplierCost">5000</strong>円</p>
+                    <button onclick="buyMultiplier()" class="btn btn-accent">
+                        購入
+                    </button>
+                </section>
+            </aside>
+        </main>
+
+        <!-- 統計セクション -->
+        <section class="stats-section">
+            <h2>📊 ゲーム統計</h2>
+            <button onclick="toggleStats()" class="btn btn-small">統計を表示/非表示</button>
+            <div id="statsPanel" class="stats-panel hidden">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="label">総獲得石</span>
+                        <span class="value" id="totalRocksEarned">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">総売却金</span>
+                        <span class="value" id="totalMoneyEarned">0円</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">現在の石価格</span>
+                        <span class="value" id="currentRockPrice">1円</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">総クリック回数</span>
+                        <span class="value" id="totalClicksCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">自動売却機</span>
+                        <span class="value" id="statAutoSellers">0台</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">ドリル機械</span>
+                        <span class="value" id="statDrills">0台</span>
+                    </div>
+                </div>
+                <button onclick="resetGame()" class="btn btn-danger">ゲームをリセット</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="rock-script.js"></script>
+</body>
+</html>
